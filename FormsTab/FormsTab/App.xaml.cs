@@ -1,37 +1,49 @@
-﻿using FormsTab.Views;
+﻿using FormsTab.Models;
+using FormsTab.Services;
+using FormsTab.Views;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace FormsTab
 {
     public partial class App : Application
     {
+        public static bool UseMockDataStore = true;
+
         public App()
         {
             InitializeComponent();
 
+
+            if (UseMockDataStore)
+                DependencyService.Register<MockDataStore>();
+            else
+                DependencyService.Register<CloudDataStore>();
+
             SetMainPage();
+        }
+
+        public class MyTabs : TabbedPage
+        {
         }
 
         public static void SetMainPage()
         {
-            Current.MainPage = new TabbedPage
+            Current.MainPage = new MyTabs
             {
                 Children =
                 {
                     new NavigationPage(new ItemsPage())
                     {
-                        Title = "Browse",
-                        Icon = Device.OnPlatform("tab_feed.png",null,null)
+                        Icon = "ic_home"
                     },
                     new NavigationPage(new AboutPage())
                     {
-                        Title = "About",
-                        Icon = Device.OnPlatform("tab_about.png",null,null)
+                        Icon = "ic_settings"
                     },
-                }
+                },
+                BarBackgroundColor = (Color)Current.Resources["Primary"]
             };
         }
     }

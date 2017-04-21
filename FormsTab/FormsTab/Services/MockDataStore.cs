@@ -76,15 +76,28 @@ namespace FormsTab.Services
                 return;
 
             items = new List<Item>();
-            var _items = new List<Item>
+            Random rnd = new Random();
+
+            var _items = new List<Item>();
+            for (int i = 0; i < 100; i++)
             {
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Buy some cat food", Description="The cats are hungry"},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Learn F#", Description="Seems like a functional idea"},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Learn to play guitar", Description="Noted"},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Buy some new candles", Description="Pine and cranberry for that winter feel"},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Complete holiday shopping", Description="Keep it a secret!"},
-                new Item { Id = Guid.NewGuid().ToString(), Text = "Finish a todo list", Description="Done"},
-            };
+                var desc = DateTime.Now.AddMinutes(i).ToString("F");
+                string url = null;
+                var title = "item";
+                if (rnd.Next(20) < 10)
+                {
+                    for (int d = 0; d <= rnd.Next(9); d++)
+                    {
+                        title += " item";
+                        desc = $"{desc} with {DateTime.Now.AddMinutes(i).ToString("F")}";
+                    }
+                }
+                if (rnd.Next(10) < 6)
+                {
+                    url = $"http://unsplash.it/200/300/?image={i}";
+                }
+                _items.Add(new Item { Id = Guid.NewGuid().ToString(), Text = $"{title} {i}", Description = desc, ImageUrl = url, PostTime = DateTime.Now - TimeSpan.FromMinutes(rnd.Next(100000)) });
+            }
 
             foreach (Item item in _items)
             {
