@@ -14,5 +14,9 @@ namespace FormsTab.Services
         Task InitializeAsync();
         Task<bool> PullLatestAsync();
         Task<bool> SyncAsync();
+
+        // Mock helper
+        IEnumerable<T> GetItems();
+        T GetItem(int i);
     }
 }

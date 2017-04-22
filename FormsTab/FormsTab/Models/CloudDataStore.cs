@@ -46,5 +46,15 @@ namespace FormsTab.Models
         {
             throw new NotImplementedException();
         }
+
+        public Item GetItem(int i)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Item> GetItems()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

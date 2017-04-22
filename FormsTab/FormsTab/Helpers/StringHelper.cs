@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace FormsTest.Helpers
 {
     public static class StringHelper

@@ -15,6 +15,16 @@ namespace FormsTab.ViewModels
         public ObservableRangeCollection<Item> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
 
+        public ItemsViewModel(bool isDesign)
+        {
+            if (isDesign)
+            {
+                var items = DataStore.GetItems();
+                Items = new ObservableRangeCollection<Item>();
+                Items.ReplaceRange(items);
+            }
+        }
+
         public ItemsViewModel()
         {
             Title = "Browse";

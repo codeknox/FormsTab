@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using FormsTab.Models;
+using FormsTab.Services;
 using Xamarin.Forms;
 
 namespace FormsTab.ViewModels
@@ -8,6 +9,11 @@ namespace FormsTab.ViewModels
     {
         public Item Item { get; set; }
         public Command ImageTapCommand { get; set; }
+
+        public ItemDetailViewModel()
+        {
+            Item = DependencyService.Get<IDataStore<Item>>().GetItem(1);
+        }
 
         public ItemDetailViewModel(Item item = null)
         {

@@ -12,14 +12,15 @@ namespace FormsTab.Services
 {
     public class MockDataStore : IDataStore<Item>
     {
-        bool isInitialized;
-        List<Item> items;
+        bool _isInitialized;
+        List<Item> _items;
+        readonly Random _rnd = new Random();
 
         public async Task<bool> AddItemAsync(Item item)
         {
             await InitializeAsync();
 
-            items.Add(item);
+            _items.Add(item);
 
             return await Task.FromResult(true);
         }
@@ -28,9 +29,9 @@ namespace FormsTab.Services
         {
             await InitializeAsync();
 
-            var _item = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
-            items.Remove(_item);
-            items.Add(item);
+            var _item = _items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
+            _items.Remove(_item);
+            _items.Add(item);
 
             return await Task.FromResult(true);
         }
@@ -39,8 +40,8 @@ namespace FormsTab.Services
         {
             await InitializeAsync();
 
-            var _item = items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
-            items.Remove(_item);
+            var _item = _items.Where((Item arg) => arg.Id == item.Id).FirstOrDefault();
+            _items.Remove(_item);
 
             return await Task.FromResult(true);
         }
@@ -49,14 +50,14 @@ namespace FormsTab.Services
         {
             await InitializeAsync();
 
-            return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
+            return await Task.FromResult(_items.FirstOrDefault(s => s.Id == id));
         }
 
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
         {
             await InitializeAsync();
 
-            return await Task.FromResult(items);
+            return await Task.FromResult(_items);
         }
 
         public Task<bool> PullLatestAsync()
@@ -72,39 +73,53 @@ namespace FormsTab.Services
 
         public async Task InitializeAsync()
         {
-            if (isInitialized)
+            if (_isInitialized)
                 return;
 
-            items = new List<Item>();
-            Random rnd = new Random();
+            _items = new List<Item>();
 
-            var _items = new List<Item>();
-            for (int i = 0; i < 100; i++)
+            for (var i = 0; i < 100; i++)
             {
-                var desc = DateTime.Now.AddMinutes(i).ToString("F");
-                string url = null;
-                var title = "item";
-                if (rnd.Next(20) < 10)
-                {
-                    for (int d = 0; d <= rnd.Next(9); d++)
-                    {
-                        title += " item";
-                        desc = $"{desc} with {DateTime.Now.AddMinutes(i).ToString("F")}";
-                    }
-                }
-                if (rnd.Next(10) < 6)
-                {
-                    url = $"http://unsplash.it/200/300/?image={i}";
-                }
-                _items.Add(new Item { Id = Guid.NewGuid().ToString(), Text = $"{title} {i}", Description = desc, ImageUrl = url, PostTime = DateTime.Now - TimeSpan.FromMinutes(rnd.Next(100000)) });
+                _items.Add(GetItem(i));
             }
 
-            foreach (Item item in _items)
+            _isInitialized = true;
+        }
+
+
+        public IEnumerable<Item> GetItems()
+        {
+            _items = new List<Item>();
+
+            for (var i = 0; i < 100; i++)
             {
-                items.Add(item);
+                _items.Add(GetItem(i));
             }
 
-            isInitialized = true;
+            return _items;
+        }
+
+        public Item GetItem(int i)
+        {
+            var desc = DateTime.Now.AddMinutes(i).ToString("F");
+            string url = null;
+            var title = "item";
+
+            if (_rnd.Next(20) < 10)
+            {
+                for (int d = 0; d <= _rnd.Next(9); d++)
+                {
+                    title += " item";
+                    desc = $"{desc} with {DateTime.Now.AddMinutes(i).ToString("F")}";
+                }
+            }
+
+            if (_rnd.Next(10) < 6)
+            {
+                url = $"http://unsplash.it/200/300/?image={i}";
+            }
+
+            return new Item { Id = Guid.NewGuid().ToString(), Text = $"{title} {i}", Description = desc, ImageUrl = url, PostTime = DateTime.Now - TimeSpan.FromMinutes(_rnd.Next(100000)) };
         }
     }
 }

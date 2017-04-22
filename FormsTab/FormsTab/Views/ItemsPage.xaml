@@ -2,12 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:formsTest="clr-namespace:FormsTest;assembly=FormsTab"
+             xmlns:design="clr-namespace:FormsTab.Helpers;assembly=FormsTab"
+             BindingContext="{x:Static design:ViewModelLocator.ItemsViewModel}"
              x:Class="FormsTab.Views.ItemsPage"
-              Title="{Binding Title}"
+             Title="{Binding Title}"
              x:Name="BrowseItemsPage">
-  <ContentPage.ToolbarItems>
-  	<ToolbarItem Text="Add Item" Clicked="AddItem_Clicked" />
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add Item" Clicked="AddItem_Clicked" />
     </ContentPage.ToolbarItems>
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <formsTest:StoryBoard
@@ -28,6 +32,8 @@
     </ContentPage.Triggers>
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="{Binding Title}"/>
+            <Label Text="{Binding Items.Count}"/>
             <ListView
                 x:Name="ItemsListView"
                 ItemsSource="{Binding Items, Mode=OneWay}"

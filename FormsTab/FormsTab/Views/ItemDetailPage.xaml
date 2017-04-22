@@ -2,11 +2,14 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:design="clr-namespace:FormsTab.Helpers;assembly=FormsTab"
     x:Class="FormsTab.Views.ItemDetailPage"
+    BindingContext="{x:Static design:ViewModelLocator.ItemDetailViewModel}"
     Title="{Binding Title}">
     <StackLayout
         Spacing="20"
         Padding="15">
+        <Label Text="Sergio Ibagy" BackgroundColor="Aqua" Margin="10" TextColor="Black" />
         <Label
             Text="{Binding Item.PostTime,StringFormat='{0:MMMM dd, yyyy}'}}"
             HorizontalOptions="End"

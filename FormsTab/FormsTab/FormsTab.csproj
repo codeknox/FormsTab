@@ -53,6 +53,7 @@
     <Compile Include="Helpers\ObservableRangeCollection.cs" />
     <Compile Include="Helpers\PinchPanImage.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
+    <Compile Include="Helpers\ViewModelLocator.cs" />
     <Compile Include="Models\BaseDataObject.cs" />
     <Compile Include="Models\CloudDataStore.cs" />
     <Compile Include="Models\Item.cs" />

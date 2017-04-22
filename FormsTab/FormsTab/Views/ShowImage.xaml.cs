@@ -7,6 +7,10 @@ namespace FormsTab.Views
     {
         ShowImageViewModel viewModel;
 
+        public ShowImage()
+        {
+        }
+
         public ShowImage(ShowImageViewModel viewModel)
         {
             InitializeComponent();

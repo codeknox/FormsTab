@@ -3,6 +3,8 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:helpers="clr-namespace:FormsTest.Helpers"
+    xmlns:design="clr-namespace:FormsTab.Helpers;assembly=FormsTab"
+    BindingContext="{x:Static design:ViewModelLocator.ShowImageViewModel}"
     x:Class="FormsTab.Views.ShowImage">
     <Grid>
         <helpers:PinchPanImage

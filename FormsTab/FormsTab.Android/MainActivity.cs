@@ -23,10 +23,8 @@ namespace FormsTab.Droid
             Window window = this.Window;
             window.ClearFlags(WindowManagerFlags.TranslucentStatus);
             window.AddFlags(WindowManagerFlags.DrawsSystemBarBackgrounds);
-            //window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#43A047"));
 
             window.SetStatusBarColor(Android.Graphics.Color.ParseColor(((Xamarin.Forms.Color)App.Current.Resources["Primary"]).GetHexString()));
-
         }
     }
 }
