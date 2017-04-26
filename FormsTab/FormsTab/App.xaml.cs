@@ -36,11 +36,13 @@ namespace FormsTab
                 {
                     new NavigationPage(new ItemsPage())
                     {
-                        Icon = "ic_home"
+                        Title = "Home",
+                        Icon = "tab_feed"
                     },
                     new NavigationPage(new AboutPage())
                     {
-                        Icon = "ic_settings"
+                        Title = "About",
+                        Icon = "tab_about"
                     },
                 },
                 BarBackgroundColor = (Color)Current.Resources["Primary"]

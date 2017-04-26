@@ -32,8 +32,6 @@
     </ContentPage.Triggers>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding Title}"/>
-            <Label Text="{Binding Items.Count}"/>
             <ListView
                 x:Name="ItemsListView"
                 ItemsSource="{Binding Items, Mode=OneWay}"
@@ -75,8 +73,9 @@
                                         <!--                                        Style="{DynamicResource ListItemTextStylex}"-->
                                     </StackLayout>
                                     <Image
-                                        Source="{Binding ImageUrl}"
+                                        Source="{Binding UrlSource}"
                                         Margin="5"
+										WidthRequest="200"
                                         HorizontalOptions="Start" />
                                     <Label
                                         Text="{Binding Description}"

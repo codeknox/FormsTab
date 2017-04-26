@@ -1,5 +1,6 @@
 ﻿using System;
 using FormsTest.Helpers;
+using Xamarin.Forms;
 
 namespace FormsTab.Models
 {
@@ -24,6 +25,22 @@ namespace FormsTab.Models
         {
             get { return imageurl; }
             set { SetProperty(ref imageurl, value); }
+        }
+
+        public UriImageSource UrlSource
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ImageUrl))
+                    return null;
+                
+                return new UriImageSource
+                {
+                    Uri = new Uri(ImageUrl),
+                    CachingEnabled = true,
+                    CacheValidity = new TimeSpan(5, 0, 0, 0)
+                };
+            }
         }
 
         DateTime postTime;
